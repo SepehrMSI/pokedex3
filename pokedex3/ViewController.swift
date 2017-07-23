@@ -16,10 +16,27 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         super.viewDidLoad()
         collection.dataSource = self
         collection.delegate = self
+        parsePokemonCSV()
         
     }
 
-  
+    func parsePokemonCSV() {
+        
+        let path = Bundle.main.path(forResource: "pokemon", ofType: "CSV")!
+        
+        do {
+            let csv = try CSV(contentsOfURL: path)
+            let rows = csv.rows
+            print(rows)
+        } catch let err as NSError{
+            print(err.debugDescription)
+        }
+        
+    }
+    
+    
+    
+    
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {   // This is for recyceling the old cells therfore the app won't crash.
         
